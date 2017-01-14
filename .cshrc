@@ -6,7 +6,7 @@ setenv AGDA_DIR ${HOME}/.agda
 setenv PYENV_ROOT "${HOME}/.pyenv"
 setenv PATH "${PYENV_ROOT}/bin:${PATH}"
 
-setenv cdd ~/Documents
+setenv LD_LIBRARY_PATH /opt/openblas/lib
 
 alias ls 'ls -GF'
 alias g  'git'
