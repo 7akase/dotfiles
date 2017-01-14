@@ -1,0 +1,17 @@
+[user]
+	name = 7akase
+	email = git_config@user.email 
+[core]
+  editor = vim
+[alias]
+  st = status
+  ch = checkout
+  br = branch
+  g1 = log --oneline --graph --decorate=full
+  l1 = log --oneline
+  po = push origin
+  fo = fetch origin
+  c0 = commit --allow-empty
+  ca = commit --amend 
+[push]
+	default = simple
