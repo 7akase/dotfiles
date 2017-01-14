@@ -1,0 +1,2 @@
+ln -sf ./.cshrc ~/.cshrc
+ln -sf ./.vimrc ~/.vimrc
