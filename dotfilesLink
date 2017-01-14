@@ -1,2 +1,3 @@
 ln -sf ./.cshrc ~/.cshrc
 ln -sf ./.vimrc ~/.vimrc
+ln -sf ./.gitconfig ~/.gitconfig
