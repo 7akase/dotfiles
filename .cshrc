@@ -1,4 +1,4 @@
-set prompt='%{\e[32m%}%n %# %{\e[00m%}'
+set prompt='%{\e[32m%}%n %#%{\e[00m%} '
 set rprompt='%{\e[00m%}[%c3]'
 
 setenv PATH /usr/local/bin:/usr/local/sbin:${PATH}:/opt/local/bin:/opt/local/sbin:/Users/yasu/bin:/User/yasu/.local/bin
