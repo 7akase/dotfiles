@@ -5,6 +5,7 @@ setenv PATH /usr/local/bin:/usr/local/sbin:${PATH}:/opt/local/bin:/opt/local/sbi
 setenv AGDA_DIR ${HOME}/.agda
 setenv PYENV_ROOT "${HOME}/.pyenv"
 setenv PATH "${PYENV_ROOT}/bin:${PATH}"
+setenv cdw ~/work
 
 setenv LD_LIBRARY_PATH /opt/openblas/lib
 
@@ -12,7 +13,7 @@ alias ls 'ls -GF'
 alias g  'git'
 alias gst 'git status'
 alias ga  'git add'
-alias cdd 'cd ~/Documents/'
-alias cdp 'cd ~/Documents/proj/'
+alias cdw 'cd ~/work/'
+alias cdp 'cd ~/work/proj/'
 
 alias sbcl 'rlwrap sbcl'
