@@ -20,8 +20,8 @@ call dein#end()
 
 " call dein#install()
 
-" ag
 " ---------------------
+" ag
 if executable('ag')
   let g:unite_source_grep_command = 'ag'
   let g:unite_source_grep_default_opts = '--nocolor --nogrep'
@@ -30,6 +30,21 @@ if executable('ag')
 endif
 nnoremap <silent> ,g :<C-u>Unite grep:. -buffer-name=search-buffer<CR>
 vnoremap /g y:Unite grep::-iRn:<C-R>=escape(@", '\\.*$^[]')<CR><CR>
+
+" ---------------------
+" GNU generate
+" nmap <C-q> <C-w><C-w><C-w>q
+" nmap <C-g> :Gtags -g
+" nmap <C-l> :Gtags -f %<CR>
+" nmap <C-j> :Gtags <C-r><C-w><CR>
+" nmap <C-k> :Gtags -r <C-r><C-w><CR>
+" nmap <C-n> :Gtags :cn<CR>
+" nmap <C-p> :Gtags :cp<CR>
+
+" ---------------------
+if $PWD != $HOME && $PWD != $HOME . "/dotfiles" && filereadable("./.vimrc")
+  source ./.vimrc
+endif
 
 " ---------------------
 " auto-ctags : genrate when save file
