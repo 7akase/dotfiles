@@ -9,7 +9,7 @@ setenv cdw ~/work
 
 setenv LD_LIBRARY_PATH /opt/openblas/lib
 
-alias ls 'ls -GF'
+alias ls 'ls -GF --color=auto'
 alias g  'git'
 alias gst 'git status'
 alias ga  'git add'
