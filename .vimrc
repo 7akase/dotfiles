@@ -81,7 +81,7 @@ endif
 
 " ------
 " tagbar
-nmap <F8> :TagbarToggle<CR>
+nmap <F8> :TagbarToggle<CR><C-w>l
 " for haskell
 let g:tagbar_type_haskell = {
   \ 'ctagsbin'  : 'hasktags',
