@@ -148,6 +148,10 @@ set softtabstop=2
 set autoindent
 set smartindent
 
+set cursorline
+
+imap <C-j> <esc>
+
 syntax on
 
 
