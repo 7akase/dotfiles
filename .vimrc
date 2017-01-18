@@ -8,11 +8,14 @@ call dein#begin(expand('~/.vim/dein'))
 call dein#add('Shougo/dein.vim')
 call dein#add('Shougo/vimproc.vim', {'build': 'make'})
 call dein#add('Shougo/unite.vim')
+call dein#add('Shougo/neomru.vim')
 call dein#add('rking/ag.vim')
 call dein#add('soramugi/auto-ctags.vim')
+call dein#add('majutsushi/tagbar')
 call dein#add('thinca/vim-ref')
 call dein#add('ujihisa/ref-hoogle')
 call dein#add('ujihisa/unite-haskellimport')
+call dein#add('eagletmt/ghcmod-vim')
 call dein#end()
 
 " call dein#install()
@@ -36,9 +39,14 @@ let g:auto_ctags_tags_args = '--tag-relative --recurse --sort=yes'
 set tags+=.git/tags;/,codex.tags;/
 
 " ---------------------
-if $PWD != $HOME && $PWD != $HOME . "/dotfiles" && filereadable("./.vimrc")
-  source ./.vimrc
-endif
+" Unite
+let g:unite_source_history_yank_enable =1
+let g:unite_source_file_mru_limit = 200
+nnoremap <silent> ,uy :<C-u>Unite history/yank<CR>
+nnoremap <silent> ,ub :<C-u>Unite buffer<CR>
+nnoremap <silent> ,uf :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
+nnoremap <silent> ,ur :<C-u>Unite -buffer-name=register register<CR>
+nnoremap <silent> ,uu :<C-u>Unite file_mru buffer<CR>
 
 " ---------------------
 " vimshell
@@ -51,10 +59,69 @@ if has('macunix')
 endif
 
 " ---------------------
-augroup vimrc-haskell-sort-import
-  autocmd!
-  autocmd BufWritePre *.hs HaskellSortImport
-augroup END
+" augroup vimrc-haskell-sort-import
+"   autocmd!
+"   autocmd BufWritePre *.hs HaskellSortImport
+" augroup END
+
+" ------
+" tagbar
+nmap <F8> :TagbarToggle<CR>
+" for haskell
+let g:tagbar_type_haskell = {
+  \ 'ctagsbin'  : 'hasktags',
+  \ 'ctagsargs' : '-x -c -o-',
+  \ 'kinds'     : [
+    \  'm:modules:0:1',
+    \  'd:data: 0:1',
+    \  'd_gadt: data gadt:0:1',
+    \  't:type names:0:1',
+    \  'nt:new types:0:1',
+    \  'c:classes:0:1',
+    \  'cons:constructors:1:1',
+    \  'c_gadt:constructor gadt:1:1',
+    \  'c_a:constructor accessors:1:1',
+    \  'ft:function types:1:1',
+    \  'fi:function implementations:0:1',
+    \  'o:others:0:1'
+    \ ],
+  \ 'sro'        : '.',
+  \ 'kind2scope' : {
+    \ 'm' : 'module',
+    \ 'c' : 'class',
+    \ 'd' : 'data',
+    \ 't' : 'type'
+  \ },
+  \ 'scope2kind' : {
+    \ 'module' : 'm',
+    \ 'class'  : 'c',
+    \ 'data'   : 'd',
+    \ 'type'   : 't'
+  \ }
+\ }
+
+
+let g:rt_cw = ''
+function! RT()
+  let cw = expand('<cword>')
+  try
+    if cw != g:rt_cw
+      execute 'tag ' . cw
+      call search(cw, 'c', line('.'))
+    else
+      try
+        execute 'tnext'
+      catch /.*/
+        execute 'trewind'
+      endtry
+      call search(cw, 'c', line('.'))
+    endif
+    let g:rt_cw = cw
+  catch /.*/
+    echo "no tags on " . cw
+  endtry
+endfunction
+" map <C-]> :call RT()<CR>
 
 " ---------------------
 map <Leader>r <Esc>:!sbcl --script %<CR>
