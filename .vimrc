@@ -10,12 +10,13 @@ call dein#add('Shougo/vimproc.vim', {'build': 'make'})
 call dein#add('Shougo/unite.vim')
 call dein#add('Shougo/neomru.vim')
 call dein#add('rking/ag.vim')
-call dein#add('soramugi/auto-ctags.vim')
+" call dein#add('soramugi/auto-ctags.vim')
 call dein#add('majutsushi/tagbar')
 call dein#add('thinca/vim-ref')
 call dein#add('ujihisa/ref-hoogle')
 call dein#add('ujihisa/unite-haskellimport')
 call dein#add('eagletmt/ghcmod-vim')
+call dein#add('JuliaLang/julia-vim')
 call dein#end()
 
 " call dein#install()
@@ -48,10 +49,10 @@ endif
 
 " ---------------------
 " auto-ctags : genrate when save file
-let g:auto_ctags = 1
-let g:auto_ctags_directory_list = ['.git']
-let g:auto_ctags_tags_args = '--tag-relative --recurse --sort=yes'
-set tags+=.git/tags;/,codex.tags;/
+"" let g:auto_ctags = 1
+"" let g:auto_ctags_directory_list = ['.git']
+"" let g:auto_ctags_tags_args = '--tag-relative --recurse --sort=yes'
+"" set tags+=./tags;.git/tags;/,codex.tags;/
 
 " ---------------------
 " Unite
@@ -149,6 +150,7 @@ set autoindent
 set smartindent
 
 set cursorline
+set nowrap
 
 imap <C-j> <esc>
 
