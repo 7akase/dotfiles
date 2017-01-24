@@ -1,0 +1,22 @@
+#!/usr/bin/tcsh
+
+sudo apt-get -y install exuberant-ctags
+sudo apt-get -y install global
+
+# libraries
+sudo apt-get -y install gnuplot-x11
+sudo apt-get -y install libblas-dev libgsl0-dev liblapack-dev
+sudo apt-get -y install libaltas-base-dev libatlas-doc
+
+# programming languages
+curl -sSL https://get.haskellstack.org/ | sh
+stack install ghc-mod hasktags haskdogs codex hscope pointfree pointful hoogle stylish-haskell
+# setenv PATH $PATH:${HOME}/.local/bin
+# hoogle generate
+# vim configuration for haskell : http://cohama.hateblo.jp/entry/2013/09/01/013944
+
+sudo add-apt-repository ppa:staticfloat/juliarelases
+sudo add-apt-repository ppa:staticfloat/julia-deps
+sudo apt-get update
+sudo apt-get -y install julia  # Install Julia Language
+sudo apt-get -y install sbcl rlwrap
