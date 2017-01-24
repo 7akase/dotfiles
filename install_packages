@@ -10,6 +10,7 @@ sudo apt-get -y install libaltas-base-dev libatlas-doc
 
 # programming languages
 curl -sSL https://get.haskellstack.org/ | sh
+source ~/.cshrc  # update $PATH to use stack
 stack install ghc-mod hasktags haskdogs codex hscope pointfree pointful hoogle stylish-haskell
 # setenv PATH $PATH:${HOME}/.local/bin
 # hoogle generate
