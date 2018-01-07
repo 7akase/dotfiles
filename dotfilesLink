@@ -2,3 +2,4 @@ ln -sf $HOME/dotfiles/.cshrc ~/.cshrc
 ln -sf $HOME/dotfiles/.vimrc ~/.vimrc
 ln -sf $HOME/dotfiles/.gitconfig ~/.gitconfig
 ln -sf $HOME/dotfiles/.ctags ~/.ctags
+ln -sf $HOME/dotfiles/.bash_aliases ~/.bash_aliases
