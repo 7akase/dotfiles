@@ -9,6 +9,7 @@ call dein#add('Shougo/dein.vim')
 call dein#add('Shougo/vimproc.vim', {'build': 'make'})
 call dein#add('Shougo/unite.vim')
 call dein#add('Shougo/neomru.vim')
+call dein#add('dhruvasagar/vim-table-mode')
 call dein#add('rking/ag.vim')
 " call dein#add('soramugi/auto-ctags.vim')
 call dein#add('majutsushi/tagbar')
@@ -152,7 +153,10 @@ set smartindent
 set cursorline
 set nowrap
 
-imap <C-j> <esc>
+imap jk <esc>
+
+set path+=./,**/
+set suffixesadd=.v
 
 syntax on
 
