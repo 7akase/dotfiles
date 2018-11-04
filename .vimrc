@@ -7,17 +7,25 @@ set runtimepath+=~/.vim/dein/repos/github.com/Shougo/dein.vim
 call dein#begin(expand('~/.vim/dein'))
 call dein#add('Shougo/dein.vim')
 call dein#add('Shougo/vimproc.vim', {'build': 'make'})
-call dein#add('Shougo/unite.vim')
-call dein#add('Shougo/neomru.vim')
-call dein#add('dhruvasagar/vim-table-mode')
+" call dein#add('Shougo/unite.vim')
+" call dein#add('Shougo/neomru.vim')
+" call dein#add('dhruvasagar/vim-table-mode')
 call dein#add('rking/ag.vim')
 " call dein#add('soramugi/auto-ctags.vim')
-call dein#add('majutsushi/tagbar')
-call dein#add('thinca/vim-ref')
-call dein#add('ujihisa/ref-hoogle')
-call dein#add('ujihisa/unite-haskellimport')
+" call dein#add('majutsushi/tagbar')
+" call dein#add('thinca/vim-ref')
+" call dein#add('ujihisa/ref-hoogle')
+" call dein#add('ujihisa/unite-haskellimport')
 call dein#add('eagletmt/ghcmod-vim')
 call dein#add('JuliaLang/julia-vim')
+call dein#add('w0rp/ale')
+call dein#add('scrooloose/nerdtree')
+
+" markdown
+call dein#add('plasticboy/vim-markdown')
+call dein#add('kannokanno/previm')
+" call dein#add('tyru/open-browser.vim')
+
 call dein#end()
 
 " call dein#install()
@@ -48,6 +56,12 @@ if $PWD != $HOME && $PWD != $HOME . "/dotfiles" && filereadable("./.vimrc")
   source ./.vimrc
 endif
 
+" ------
+" ale 
+" let g:ale_linters = {
+" \  'haskell': ['hlint'],
+" \}
+
 " ---------------------
 " auto-ctags : genrate when save file
 "" let g:auto_ctags = 1
@@ -57,19 +71,19 @@ endif
 
 " ---------------------
 " Unite
-let g:unite_source_history_yank_enable =1
-let g:unite_source_file_mru_limit = 200
-nnoremap <silent> ,uy :<C-u>Unite history/yank<CR>
-nnoremap <silent> ,ub :<C-u>Unite buffer<CR>
-nnoremap <silent> ,uf :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
-nnoremap <silent> ,ur :<C-u>Unite -buffer-name=register register<CR>
-nnoremap <silent> ,uu :<C-u>Unite file_mru buffer<CR>
+" let g:unite_source_history_yank_enable =1
+" let g:unite_source_file_mru_limit = 200
+" nnoremap <silent> ,uy :<C-u>Unite history/yank<CR>
+" nnoremap <silent> ,ub :<C-u>Unite buffer<CR>
+" nnoremap <silent> ,uf :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
+" nnoremap <silent> ,ur :<C-u>Unite -buffer-name=register register<CR>
+" nnoremap <silent> ,uu :<C-u>Unite file_mru buffer<CR>
 
 " ---------------------
 " vimshell
-let g:VimShell_EnableInteractive = 1
-nnoremap <silent> :scl :VimShellInteractive sbcl<cr>
-nnoremap <silent> ,is :VimShellSendString
+" let g:VimShell_EnableInteractive = 1
+" nnoremap <silent> :scl :VimShellInteractive sbcl<cr>
+" nnoremap <silent> ,is :VimShellSendString
 
 if has('macunix')
 	let mapleader = "_"
@@ -83,62 +97,70 @@ endif
 
 " ------
 " tagbar
-nmap <F8> :TagbarToggle<CR><C-w>l
-" for haskell
-let g:tagbar_type_haskell = {
-  \ 'ctagsbin'  : 'hasktags',
-  \ 'ctagsargs' : '-x -c -o-',
-  \ 'kinds'     : [
-    \  'm:modules:0:1',
-    \  'd:data: 0:1',
-    \  'd_gadt: data gadt:0:1',
-    \  't:type names:0:1',
-    \  'nt:new types:0:1',
-    \  'c:classes:0:1',
-    \  'cons:constructors:1:1',
-    \  'c_gadt:constructor gadt:1:1',
-    \  'c_a:constructor accessors:1:1',
-    \  'ft:function types:1:1',
-    \  'fi:function implementations:0:1',
-    \  'o:others:0:1'
-    \ ],
-  \ 'sro'        : '.',
-  \ 'kind2scope' : {
-    \ 'm' : 'module',
-    \ 'c' : 'class',
-    \ 'd' : 'data',
-    \ 't' : 'type'
-  \ },
-  \ 'scope2kind' : {
-    \ 'module' : 'm',
-    \ 'class'  : 'c',
-    \ 'data'   : 'd',
-    \ 'type'   : 't'
-  \ }
-\ }
+" nmap <F8> :TagbarToggle<CR><C-w>l
+" " for haskell
+" let g:tagbar_type_haskell = {
+"   \ 'ctagsbin'  : 'hasktags',
+"   \ 'ctagsargs' : '-x -c -o-',
+"   \ 'kinds'     : [
+"     \  'm:modules:0:1',
+"     \  'd:data: 0:1',
+"     \  'd_gadt: data gadt:0:1',
+"     \  't:type names:0:1',
+"     \  'nt:new types:0:1',
+"     \  'c:classes:0:1',
+"     \  'cons:constructors:1:1',
+"     \  'c_gadt:constructor gadt:1:1',
+"     \  'c_a:constructor accessors:1:1',
+"     \  'ft:function types:1:1',
+"     \  'fi:function implementations:0:1',
+"     \  'o:others:0:1'
+"     \ ],
+"   \ 'sro'        : '.',
+"   \ 'kind2scope' : {
+"     \ 'm' : 'module',
+"     \ 'c' : 'class',
+"     \ 'd' : 'data',
+"     \ 't' : 'type'
+"   \ },
+"   \ 'scope2kind' : {
+"     \ 'module' : 'm',
+"     \ 'class'  : 'c',
+"     \ 'data'   : 'd',
+"     \ 'type'   : 't'
+"   \ }
+" \ }
 
 
-let g:rt_cw = ''
-function! RT()
-  let cw = expand('<cword>')
-  try
-    if cw != g:rt_cw
-      execute 'tag ' . cw
-      call search(cw, 'c', line('.'))
-    else
-      try
-        execute 'tnext'
-      catch /.*/
-        execute 'trewind'
-      endtry
-      call search(cw, 'c', line('.'))
-    endif
-    let g:rt_cw = cw
-  catch /.*/
-    echo "no tags on " . cw
-  endtry
-endfunction
-" map <C-]> :call RT()<CR>
+" let g:rt_cw = ''
+" function! RT()
+"   let cw = expand('<cword>')
+"   try
+"     if cw != g:rt_cw
+"       execute 'tag ' . cw
+"       call search(cw, 'c', line('.'))
+"     else
+"       try
+"         execute 'tnext'
+"       catch /.*/
+"         execute 'trewind'
+"       endtry
+"       call search(cw, 'c', line('.'))
+"     endif
+"     let g:rt_cw = cw
+"   catch /.*/
+"     echo "no tags on " . cw
+"   endtry
+" endfunction
+" " map <C-]> :call RT()<CR>
+
+" ------
+" previm
+autocmd BufRead,BufNewFile *.md set filetype=markdown
+nnoremap <silent> <C-p> :PrevimOpen<CR>
+let g:vim_markdown_folding_disabled=1
+let g:previm_open_cmd='firefox'
+let g:previm_enable_realtime=1
 
 " ---------------------
 map <Leader>r <Esc>:!sbcl --script %<CR>
@@ -157,6 +179,8 @@ imap jk <esc>
 
 set path+=./,**/
 set suffixesadd=.v
+
+filetype plugin indent on
 
 syntax on
 
