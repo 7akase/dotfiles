@@ -1,3 +1,0 @@
-cp ~/.cshrc ./
-cp ~/.vimrc ./
-cp ~/.gitconfig ./

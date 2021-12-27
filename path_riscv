@@ -1,5 +1,0 @@
-export PATH=${PATH}:/opt/riscv/bin
-export PATH=${PATH}:~/work/RISCV/Syntacore/openocd/src/
-export PATH=${PATH}:~/work/RISCV/Syntacore/SCR1_MAX10FB/sw/workspace/PROJ_MAX10FB/tool
-
-

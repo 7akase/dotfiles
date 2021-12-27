@@ -1,187 +1,85 @@
-" ---------------------
-if &compatible
-  set nocompatible
-endif
-set runtimepath+=~/.vim/dein/repos/github.com/Shougo/dein.vim
-
-call dein#begin(expand('~/.vim/dein'))
-call dein#add('Shougo/dein.vim')
-call dein#add('Shougo/vimproc.vim', {'build': 'make'})
-" call dein#add('Shougo/unite.vim')
-" call dein#add('Shougo/neomru.vim')
-" call dein#add('dhruvasagar/vim-table-mode')
-call dein#add('rking/ag.vim')
-" call dein#add('soramugi/auto-ctags.vim')
-" call dein#add('majutsushi/tagbar')
-" call dein#add('thinca/vim-ref')
-" call dein#add('ujihisa/ref-hoogle')
-" call dein#add('ujihisa/unite-haskellimport')
-call dein#add('eagletmt/ghcmod-vim')
-call dein#add('JuliaLang/julia-vim')
-call dein#add('w0rp/ale')
-call dein#add('scrooloose/nerdtree')
-
-" markdown
-call dein#add('plasticboy/vim-markdown')
-call dein#add('kannokanno/previm')
-" call dein#add('tyru/open-browser.vim')
-
-call dein#end()
-
-" call dein#install()
-
-" ---------------------
-" ag
-if executable('ag')
-  let g:unite_source_grep_command = 'ag'
-  let g:unite_source_grep_default_opts = '--nocolor --nogrep'
-  let g:unite_source_grep_max_candidates = 200
-  let g:unite_source_grep_recursive_opt = ''
-endif
-nnoremap <silent> ,g :<C-u>Unite grep:. -buffer-name=search-buffer<CR>
-vnoremap /g y:Unite grep::-iRn:<C-R>=escape(@", '\\.*$^[]')<CR><CR>
-
-" ---------------------
-" GNU generate
-" nmap <C-q> <C-w><C-w><C-w>q
-" nmap <C-g> :Gtags -g
-" nmap <C-l> :Gtags -f %<CR>
-" nmap <C-j> :Gtags <C-r><C-w><CR>
-" nmap <C-k> :Gtags -r <C-r><C-w><CR>
-" nmap <C-n> :Gtags :cn<CR>
-" nmap <C-p> :Gtags :cp<CR>
-
-" ---------------------
-if $PWD != $HOME && $PWD != $HOME . "/dotfiles" && filereadable("./.vimrc")
-  source ./.vimrc
-endif
-
-" ------
-" ale 
-" let g:ale_linters = {
-" \  'haskell': ['hlint'],
-" \}
-
-" ---------------------
-" auto-ctags : genrate when save file
-"" let g:auto_ctags = 1
-"" let g:auto_ctags_directory_list = ['.git']
-"" let g:auto_ctags_tags_args = '--tag-relative --recurse --sort=yes'
-"" set tags+=./tags;.git/tags;/,codex.tags;/
-
-" ---------------------
-" Unite
-" let g:unite_source_history_yank_enable =1
-" let g:unite_source_file_mru_limit = 200
-" nnoremap <silent> ,uy :<C-u>Unite history/yank<CR>
-" nnoremap <silent> ,ub :<C-u>Unite buffer<CR>
-" nnoremap <silent> ,uf :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
-" nnoremap <silent> ,ur :<C-u>Unite -buffer-name=register register<CR>
-" nnoremap <silent> ,uu :<C-u>Unite file_mru buffer<CR>
-
-" ---------------------
-" vimshell
-" let g:VimShell_EnableInteractive = 1
-" nnoremap <silent> :scl :VimShellInteractive sbcl<cr>
-" nnoremap <silent> ,is :VimShellSendString
-
-if has('macunix')
-	let mapleader = "_"
-endif
-
-" ---------------------
-" augroup vimrc-haskell-sort-import
-"   autocmd!
-"   autocmd BufWritePre *.hs HaskellSortImport
-" augroup END
-
-" ------
-" tagbar
-" nmap <F8> :TagbarToggle<CR><C-w>l
-" " for haskell
-" let g:tagbar_type_haskell = {
-"   \ 'ctagsbin'  : 'hasktags',
-"   \ 'ctagsargs' : '-x -c -o-',
-"   \ 'kinds'     : [
-"     \  'm:modules:0:1',
-"     \  'd:data: 0:1',
-"     \  'd_gadt: data gadt:0:1',
-"     \  't:type names:0:1',
-"     \  'nt:new types:0:1',
-"     \  'c:classes:0:1',
-"     \  'cons:constructors:1:1',
-"     \  'c_gadt:constructor gadt:1:1',
-"     \  'c_a:constructor accessors:1:1',
-"     \  'ft:function types:1:1',
-"     \  'fi:function implementations:0:1',
-"     \  'o:others:0:1'
-"     \ ],
-"   \ 'sro'        : '.',
-"   \ 'kind2scope' : {
-"     \ 'm' : 'module',
-"     \ 'c' : 'class',
-"     \ 'd' : 'data',
-"     \ 't' : 'type'
-"   \ },
-"   \ 'scope2kind' : {
-"     \ 'module' : 'm',
-"     \ 'class'  : 'c',
-"     \ 'data'   : 'd',
-"     \ 'type'   : 't'
-"   \ }
-" \ }
-
-
-" let g:rt_cw = ''
-" function! RT()
-"   let cw = expand('<cword>')
-"   try
-"     if cw != g:rt_cw
-"       execute 'tag ' . cw
-"       call search(cw, 'c', line('.'))
-"     else
-"       try
-"         execute 'tnext'
-"       catch /.*/
-"         execute 'trewind'
-"       endtry
-"       call search(cw, 'c', line('.'))
-"     endif
-"     let g:rt_cw = cw
-"   catch /.*/
-"     echo "no tags on " . cw
-"   endtry
-" endfunction
-" " map <C-]> :call RT()<CR>
-
-" ------
-" previm
-autocmd BufRead,BufNewFile *.md set filetype=markdown
-nnoremap <silent> <C-p> :PrevimOpen<CR>
-let g:vim_markdown_folding_disabled=1
-let g:previm_open_cmd='firefox'
-let g:previm_enable_realtime=1
-
-" ---------------------
-map <Leader>r <Esc>:!sbcl --script %<CR>
-
-set tabstop=2
-set shiftwidth=2
+" ----------------------------------------------------
+" Basic Vim Setting
+set tabstop=4
+set shiftwidth=4
 set expandtab
-set softtabstop=2
-set autoindent
-set smartindent
-
-set cursorline
 set nowrap
 
-imap jk <esc>
+set incsearch
+set ignorecase " or noignrecase
 
-set path+=./,**/
-set suffixesadd=.v
+let mapleader = "\<Space>"
 
+inoremap <silent> jj <ESC>
+nnoremap <C-Left>  :tabprevious<CR>
+nnoremap <C-Right> :tabnext<CR>
+nnoremap <C-Down>  :$tabnew<CR>
+nnoremap <leader>0 :$tabnew<CR>
+
+" https://yuta84q.hatenadiary.org/entry/20090319/1237471714
+highlight TabLineFill term=NONE cterm=NONE ctermbg=0
+highlight TabLine     term=NONE cterm=NONE ctermbg=0 ctermfg=DarkBlue
+highlight TabLineSel  term=bold,reverse cterm=bold,reverse ctermbg=0
+
+" ----------------------------------------------------
+set runtimepath+=~/.fzf
+
+let s:dein_dir = expand('$HOME/.cache/dein')
+let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
+"if &compatible
+"    set nocompatible               " Be iMproved
+"endif
+" dein.vimがない場合githubからDL
+if &runtimepath !~# '/dein.vim'
+  if !isdirectory(s:dein_repo_dir)
+    execute '!git clone https://github.com/Shougo/dein.vim' s:dein_repo_dir
+  endif
+    execute 'set runtimepath^=' . fnamemodify(s:dein_repo_dir, ':p')
+endif
+" 設定開始
+if dein#load_state(s:dein_dir)
+    call dein#begin(s:dein_dir)
+    " プラグインリスト(toml)
+    let g:rc_dir    = expand('$HOME/.vim')
+    let s:toml      = g:rc_dir . '/dein.toml'
+    let s:lazy_toml = g:rc_dir . '/dein_lazy.toml'
+    " tomlのロード
+    call dein#load_toml(s:toml,      {'lazy':0})
+    call dein#load_toml(s:lazy_toml, {'lazy':1})
+    " 設定終了
+    call dein#end()
+    call dein#save_state()
+endif
+" Required:
 filetype plugin indent on
+syntax enable
+" 未インストールがあればインストール
+if dein#check_install()
+    call dein#install()
+endif
 
-syntax on
+" ----------------------------------------------------
+let g:indent_guides_enable_on_vim_startup = 0
+let g:SuperTabDefaultCompletionType = 'context'
 
+" ----------------------------------------------------
+nnoremap <leader>e : Files<CR>
+nnoremap <leader>w : Rg<CR>
+nnoremap <leader>f : FZFOpenFile<CR>
+command! FZFOpenFile call FZFOpenFileFunc()
+
+function! FZFOpenFileFunc()
+    let s:file_path = expand("<cfile>")
+    if s:file_path == ''
+        echo '[Error] <cfile> return empty string.'
+	    return 0
+    endif
+    call fzf#run({
+        \ 'source': 'find . -type d -follow -name .git -prune -o ! -name .DS_Store',
+        \ 'sink': 'e',
+        \ 'options': '-x +s --query=' . shellescape(s:file_path),
+        \ 'down': '40%'})
+endfunction
+
+" ----------------------------------------------------
 
